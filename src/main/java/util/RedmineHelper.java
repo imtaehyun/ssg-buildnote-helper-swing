@@ -110,16 +110,16 @@ public class RedmineHelper {
     public static ArrayList<Author> getAuthorList() {
         ArrayList<Author> authorList = new ArrayList<Author>();
         try {
-            // 개발자목록 가져오기
-            JSONObject jsonObject = new JSONObject(GlobalEnv.authorDeveloperJson);
+            // 기획자 목록 가져오기
+            JSONObject jsonObject = new JSONObject(GlobalEnv.authorPlannerJson);
 
             JSONArray arr = jsonObject.getJSONObject("group").getJSONArray("users");
             for (int i=0; i < arr.length(); i++) {
                 authorList.add(new Author(Integer.parseInt(arr.getJSONObject(i).get("id").toString()), arr.getJSONObject(i).get("name").toString()));
             }
 
-            // 기획자 목록 가져오기
-            jsonObject = new JSONObject(GlobalEnv.authorPlannerJson);
+            // 개발자목록 가져오기
+            jsonObject = new JSONObject(GlobalEnv.authorDeveloperJson);
 
             arr = jsonObject.getJSONObject("group").getJSONArray("users");
             for (int i=0; i < arr.length(); i++) {
@@ -160,7 +160,7 @@ public class RedmineHelper {
     }
 
     public static Issue registerBuildnote(String requestBody) {
-        String url = "http://redmine.ssgadm.com/redmine/issues.json";
+        String url = "https://redmine.ssgadm.com/redmine/projects/project-0103/issues.json";
 
         try {
 
