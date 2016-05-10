@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.URI;
+import java.net.URL;
 import java.util.*;
 import java.util.List;
 
@@ -208,10 +210,18 @@ public class BuildnoteForm extends JFrame implements ActionListener {
 
         // 기획자 테스트 요구사항
         String[] requirements = StringUtils.split(inputRequirements.getText(), "\n");
+        // 기획자 테스트 요구사항 텍스트 trim
+        for (int i=0; i < requirements.length; i++) {
+            requirements[i] = StringUtils.trim(requirements[i]);
+        }
         buildnote.setRequirements(requirements);
 
         // 소스 파일 경로
         String[] files = StringUtils.split(inputFiles.getText(), "\n");
+        // 소스 파일 경로 텍스트 trim
+        for (int i=0; i < files.length; i++) {
+            files[i] = StringUtils.trim(files[i]);
+        }
         buildnote.setFiles(files);
 
         // 배포타입
@@ -229,7 +239,17 @@ public class BuildnoteForm extends JFrame implements ActionListener {
         Issue result = RedmineHelper.registerBuildnote(buildnote.getBuildnoteIssueString());
 
         if (result != null) {
-            JOptionPane.showMessageDialog(rootPanel, "빌드노트 등록이 완료되었습니다.\nhttp://redmine.ssgadm.com/redmine/issues/" + result.getId());
+
+            try {
+                URI uri = new URI("https://redmine.ssgadm.com/redmine/issues/" + result.getId());
+                openWebpage(uri);
+                JOptionPane.showMessageDialog(rootPanel, "빌드노트 등록이 완료되었습니다.\n" + uri.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPanel, "빌드노트 등록 실패했습니다.");
+            }
+
+
         } else {
             JOptionPane.showMessageDialog(rootPanel, "빌드노트 등록 실패했습니다.");
         }
@@ -261,6 +281,18 @@ public class BuildnoteForm extends JFrame implements ActionListener {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void openWebpage(URI uri) {
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(uri);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
