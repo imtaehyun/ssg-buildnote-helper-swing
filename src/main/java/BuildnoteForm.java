@@ -211,7 +211,7 @@ public class BuildnoteForm extends JFrame implements ActionListener {
         // 기획자 테스트 요구사항
         String[] requirements = StringUtils.split(inputRequirements.getText(), "\n");
         // 기획자 테스트 요구사항 텍스트 trim
-        for (int i=0; i < requirements.length; i++) {
+        for (int i = 0; i < requirements.length; i++) {
             requirements[i] = StringUtils.trim(requirements[i]);
         }
         buildnote.setRequirements(requirements);
@@ -219,7 +219,7 @@ public class BuildnoteForm extends JFrame implements ActionListener {
         // 소스 파일 경로
         String[] files = StringUtils.split(inputFiles.getText(), "\n");
         // 소스 파일 경로 텍스트 trim
-        for (int i=0; i < files.length; i++) {
+        for (int i = 0; i < files.length; i++) {
             files[i] = StringUtils.trim(files[i]);
         }
         buildnote.setFiles(files);
