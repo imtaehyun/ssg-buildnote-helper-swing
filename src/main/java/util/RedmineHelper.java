@@ -76,7 +76,7 @@ public class RedmineHelper {
 
     /*public static ArrayList<Author> getAuthorList() {
         String urlForDeveloper = "http://redmine.ssgadm.com/redmine/groups/1102.json?include=users";
-        String urlForPlanner = "http://redmine.ssgadm.com/redmine/groups/1148.json?include=users";
+        String urlForPlanner = "http://redmine.ssgadm.com/redmine/groups/1591.json?include=users";
 
         ArrayList<Author> authorList = new ArrayList<Author>();
         try {
